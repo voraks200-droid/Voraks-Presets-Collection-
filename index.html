@@ -70,7 +70,7 @@ header {
   cursor: pointer;
 }
 
-/* Sidebar */
+/* Overlay */
 #overlay {
   position: fixed;
   top: 0;
@@ -79,8 +79,10 @@ header {
   height: 100%;
   background: rgba(0,0,0,0.3);
   display: none;
+  z-index: 1500;
 }
 
+/* Sidebar */
 #sideMenu {
   position: fixed;
   top: 0;
@@ -90,8 +92,20 @@ header {
   background: white;
   padding: 20px;
   transition: 0.3s;
+  z-index: 2000;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.2);
 }
 
+/* Close button */
+.close-btn {
+  font-size: 22px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Links */
 #sideMenu a {
   display: block;
   margin: 10px 0;
@@ -192,6 +206,7 @@ footer {
 </header>
 
 <div id="sideMenu">
+  <button id="closeBtn" class="close-btn">✕</button>
   <h3>Navigate</h3>
   <a href="index.html">HOME</a>
   <a href="ALIGHTMOTION.html">ALIGHT MOTION</a>
@@ -258,6 +273,7 @@ footer {
 var sideMenu = document.getElementById("sideMenu");
 var overlay = document.getElementById("overlay");
 var menuBtn = document.getElementById("menuBtn");
+var closeBtn = document.getElementById("closeBtn");
 var contactLink = document.getElementById("contactLink");
 var openBtn = document.getElementById("openAlightBtn");
 
@@ -273,19 +289,13 @@ function closeMenu() {
   overlay.style.display = "none";
 }
 
-/* Button Events */
-menuBtn.onclick = function() {
-  openMenu();
-};
+/* Events */
+menuBtn.onclick = openMenu;
+closeBtn.onclick = closeMenu;
+overlay.onclick = closeMenu;
+contactLink.onclick = closeMenu;
 
-overlay.onclick = function() {
-  closeMenu();
-};
-
-contactLink.onclick = function() {
-  closeMenu();
-};
-
+/* Toggle content */
 openBtn.onclick = function() {
   var content = document.getElementById("am-content");
 
